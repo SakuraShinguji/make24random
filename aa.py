@@ -3,7 +3,7 @@ import random
 import math
 
 def evaluate(expression):
-    #checks and returns the result."""
+    #checks and returns the result.
     try:
         result = eval(expression)
         if result == float('inf') or result == float('-inf') or math.isnan(result):
@@ -16,9 +16,9 @@ def evaluate(expression):
 def combine_numbers(numbers):
     #exclude 0 from combinations
     numbers = [n for n in numbers if n != 0]
-    # pad the list with 0 if it has fewer than four elements
+    #pad the list with 0 if it has fewer than four elements
     numbers += [0] * (4 - len(numbers))
-    # generate all possible combinations of rolled numbers
+    #generate all possible combinations of rolled numbers
     number_combinations = itertools.chain.from_iterable(
         itertools.combinations(numbers, r) for r in range(1, len(numbers) + 1))
     #generate all possible ways of combining the numbers by concatenation
@@ -34,7 +34,7 @@ def combine_numbers(numbers):
 def generate_operations(numbers):
     #generate all possible arithmetical operations for the given numbers.
     numbers += [0] * (4 - len(numbers))
-    # generate all possible ways of combining the numbers with single arithmetic operator
+    #generate all possible ways of combining the numbers with single arithmetic operator
     a, b, c, d = numbers
 
     # addition
@@ -77,14 +77,13 @@ def generate_operations(numbers):
         except ZeroDivisionError:
             yield None
 
-def find_24(numbers):
-    """Finds a way to combine the given numbers to get 24."""
+def find_24(numbers): # find a way for expression to make a 24
     for number_combination in combine_numbers(numbers):
         for operation in generate_operations(number_combination):
             try:
-                # join the elements of the list into a single string expression
+                #join the elements of the list into a single string expression
                 expression = ''.join(operation)
-                # try evaluating the expression
+                #try evaluating the expression
                 if evaluate(expression) == 24:
                     return expression
             except ZeroDivisionError:
@@ -94,11 +93,11 @@ def find_24(numbers):
 
 
 def main():
-    # generate a list of 4 random numbers between 1 and 9
+    #generate a list of 4 random numbers between 1 and 9
     numbers = [random.randint(0, 9) for _ in range(4)]
-    # find a way to combine the numbers to get 24
+    #find a way to combine the numbers to get 24
     solution = find_24(numbers)
-    # print the solution
+    #print the solution
     if solution is not None:
         print('{} = 24'.format(solution))
     else:
